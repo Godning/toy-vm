@@ -92,6 +92,7 @@ void eval() {
 		break;
 	default:
 		printf("Error op code.\n");
+		running = 0;
 		break;
 	}
 }
