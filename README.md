@@ -2,33 +2,36 @@
 
 A toy virtual machine in C.
 
-Assembly:
-
- > *  loadi	r0,#100
- > *  loadi	r1,#200
- > *  add		r2,r0,r1
- > *  halt
-
+ Assembly:
+ > * loadi	r0,#100
+ > * loadi	r1,#200
+ > * add		r2,r0,r1
+ > * halt
 
 Operation Code:
- > *  0	=	halt
- > *  1	=	loadi
- > *  2	=	add
- > *  f	=	halt
- 
+ > * 0	=	nop
+ > * 1	=	loadl
+ > * 2	=	strl
+ > * 3	=	loadw
+ > * 4	=	strw
+ > * 5	=	loadb
+ > * 6	=	strb
+ > * 7	=	add
+ > * 8	=	sub
+ > * 9	=	mul
+ > * a	=	div
+ > * b	=	push
+ > * c	=	pop
+ > * ff	=	halt
 
 Machine Code:
- > *  bits	15-12	1
- > *  bits	11-0	register number
- > *  bits	7-0		immediate value
-
-
-Byte Code:
- > *  1064
- > *  11C8
- > *  2201
- > *  f000
- 
+ > * Machine Code:
+ > * bits 24-31:	operation code
+ > * bits 20-23:	reg1
+ > * bits 16-19:	reg2
+ > * bits 12-15:	reg3
+ > * bits 00-15:	imm
+  
 
  References:
  
