@@ -1,16 +1,19 @@
 CC=gcc
 LD=gcc
 
+CCFLAGS= -g
+LDFLAGS= -g
+
 OBJS=toyvm.o
 
 all:toyvm
 everything:toyvm
 
 %.o:	%.c
-	$(CC) -c $<
+	$(CC) $(CCFLAGS) -c $<
 
 toyvm:$(OBJS)
-	$(LD) $(OBJS) -o $@
+	$(LD) $(LDFLAGS) $(OBJS) -o $@
 
 clean:
 	rm $(OBJS) toyvm.exe toyvm

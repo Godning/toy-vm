@@ -12,13 +12,19 @@
  halt
 
  0	=	nop
- 1	=	loadi
- 2	=	stri
- 3	=	add
- 4	=	sub
- 5	=	mul
- 6	=	div
- f	=	halt
+ 1	=	loadl
+ 2	=	strl
+ 3	=	loadw
+ 4	=	strw
+ 5	=	loadb
+ 6	=	strb
+ 7	=	add
+ 8	=	sub
+ 9	=	mul
+ a	=	div
+ b	=	push
+ c	=	pop
+ ff	=	halt
 
  bits	15-12	1
  bits	11-0	register number
@@ -42,7 +48,7 @@ enum {
 #define	NUM_REGS	8
 int regs[NUM_REGS];
 
-int prog[] = { 0x1064, 0x11C8, 0x3201, 0xf000 };
+int prog[] = { 0x01100064, 0x011000C8, 0x03321000, 0xff000000 };
 
 int pc = 0;
 
@@ -51,7 +57,7 @@ int fetch() {
 	return prog[pc++];
 }
 
-int instrNum = 0;
+int op_code = 0;
 
 int reg1 = 0;
 int reg2 = 0;
@@ -60,29 +66,32 @@ int imm = 0;
 
 void decode(int instr) {
 
-	instrNum = (instr & 0xf000) >> 12;
-	reg1 = (instr & 0xf00) >> 8;
-	reg2 = (instr & 0xf0) >> 4;
-	reg3 = (instr & 0xf);
-	imm = (instr & 0xff);
+	op_code = (instr & 0xff000000) >> 24;
+	reg1 = (instr & 0x00f00000) >> 20;
+	reg2 = (instr & 0x000f0000) >> 16;
+	reg3 = (instr & 0x0000f000) >> 12;
+	imm = (instr & 0xffff);
 }
 
 int running = 1;
 
 void eval() {
 
-	switch (instrNum) {
+	switch (op_code) {
 	case OP_HALT:
 		printf("halt\n");
 		running = 0;
 		break;
 	case OP_LOADI:
-		printf("loadi r%d,0x%x\n", reg1, imm);
+		printf("loadl r%d,0x%x\n", reg1, imm);
 		regs[reg1] = imm;
 		break;
 	case OP_ADD:
 		printf("add r%d,r%d,r%d\n", reg1, reg2, reg3);
 		regs[reg1] = regs[reg2] + regs[reg3];
+		break;
+	default:
+		printf("Error op code.\n");
 		break;
 	}
 }
