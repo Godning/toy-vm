@@ -101,7 +101,7 @@ uint32_t fetch_instruction(tcpu *p_tcpu, void*);
 
 uint32_t decode_instruction(tcpu *p_tcpu,uint32_t instr);
 
-uint32_t exec(tcpu *p_tcpu);
+uint32_t execute(tcpu *p_tcpu);
 
 #endif		/* TCPU_H_ */
 
