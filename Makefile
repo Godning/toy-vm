@@ -4,7 +4,7 @@ LD=gcc
 CCFLAGS= -g
 LDFLAGS= -g
 
-OBJS=toyvm.o tcpu.o
+OBJS=tcpu.o
 
 all:toyvm
 everything:toyvm
@@ -12,8 +12,14 @@ everything:toyvm
 %.o:	%.c
 	$(CC) $(CCFLAGS) -c $<
 
-toyvm:$(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -o $@
+toyvm:$(OBJS) toyvm.o 
+	$(LD) $(LDFLAGS) toyvm.o $(OBJS) -o $@
 
 clean:
-	rm $(OBJS) toyvm.exe toyvm
+	rm $(OBJS) toyvm.exe toyvm vmtest.exe vmtest test.o toyvm.o
+
+vmtest: test.o $(OBJS)
+	$(LD) test.o $(OBJS) -o $@
+
+test:vmtest
+	./vmtest

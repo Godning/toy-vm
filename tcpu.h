@@ -74,7 +74,7 @@ enum {
 #define IP	regs[REG_IP]
 #define SP	regs[REG_SP]
 
-typedef struct _t_instrution {
+typedef struct _tinstrution {
 	uint32_t opcode;
 	int32_t reg_1st;
 	int32_t reg_2nd;
@@ -82,13 +82,13 @@ typedef struct _t_instrution {
 	int32_t imm;
 } tinstrution;
 
-typedef struct _t_cpu {
+typedef struct _tcpu {
 	uint32_t regs[NUM_REGISTERS];
 	tinstrution instruction;
-	void (*dump_regs)(tcpu*);
-	int32_t (*fetch_instruction)(tcpu*);
-	int32_t (*decode_instruction)(tcpu*);
-	int32_t (*execute)(tcpu*);
+	void (*dump_regs)(struct _tcpu*);
+	int32_t (*fetch_instruction)(struct _tcpu*);
+	int32_t (*decode_instruction)(struct _tcpu*);
+	int32_t (*execute)(struct _tcpu*);
 } tcpu;
 
 void init_tcpu(tcpu *p_tcpu);
