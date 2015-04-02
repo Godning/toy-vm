@@ -1,5 +1,7 @@
 toyvm
 toyvm.exe
+vmtest
+vmtest.exe
 *.o
 .cproject
 .project
