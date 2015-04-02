@@ -11,9 +11,13 @@
  add		r2,r0,r1
  halt
 
- 0	=	halt
+ 0	=	nop
  1	=	loadi
- 2	=	add
+ 2	=	stri
+ 3	=	add
+ 4	=	sub
+ 5	=	mul
+ 6	=	div
  f	=	halt
 
  bits	15-12	1
@@ -31,10 +35,14 @@
 
 #include <stdio.h>
 
+enum {
+	OP_NOP = 0, OP_LOADI, OP_STRI, OP_ADD, OP_HALT = 0xf
+};
+
 #define	NUM_REGS	8
 int regs[NUM_REGS];
 
-int prog[] = { 0x1064, 0x11C8, 0x2201, 0xf000 };
+int prog[] = { 0x1064, 0x11C8, 0x3201, 0xf000 };
 
 int pc = 0;
 
@@ -64,15 +72,15 @@ int running = 1;
 void eval() {
 
 	switch (instrNum) {
-	case 0xf:
+	case OP_HALT:
 		printf("halt\n");
 		running = 0;
 		break;
-	case 0x1:
-		printf("loadi r%d,#%d\n", reg1, imm);
+	case OP_LOADI:
+		printf("loadi r%d,0x%x\n", reg1, imm);
 		regs[reg1] = imm;
 		break;
-	case 0x2:
+	case OP_ADD:
 		printf("add r%d,r%d,r%d\n", reg1, reg2, reg3);
 		regs[reg1] = regs[reg2] + regs[reg3];
 		break;
@@ -83,7 +91,7 @@ void showRegs() {
 
 	int i;
 	for (i = 0; i < NUM_REGS; i++) {
-		printf("%04x ", regs[i]);
+		printf("%08x ", regs[i]);
 	}
 	printf("\n");
 }
@@ -104,3 +112,4 @@ int main() {
 	run();
 	return 0;
 }
+
