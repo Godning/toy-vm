@@ -19,7 +19,7 @@ clean:
 	rm $(OBJS) toyvm.exe toyvm vmtest.exe vmtest test.o toyvm.o
 
 vmtest: test.o $(OBJS)
-	$(LD) test.o $(OBJS) -o $@
+	$(LD) $(LDFLAGS) test.o $(OBJS) -o $@
 
 test:vmtest
 	./vmtest

@@ -68,9 +68,11 @@ enum {
 	REG_R15
 };
 
-#define REG_IP	15
+#define	REF_FLAGS 13
 #define REG_SP	14
+#define REG_IP	15
 
+#define FLAGS regs[REG_FLAGS];
 #define IP	regs[REG_IP]
 #define SP	regs[REG_SP]
 
@@ -86,11 +88,16 @@ typedef struct _tcpu {
 	uint32_t regs[NUM_REGISTERS];
 	tinstrution instruction;
 	void (*dump_regs)(struct _tcpu*);
-	int32_t (*fetch_instruction)(struct _tcpu*);
-	int32_t (*decode_instruction)(struct _tcpu*);
-	int32_t (*execute)(struct _tcpu*);
+	uint32_t (*fetch_instruction)(struct _tcpu*, void*);
+	uint32_t (*decode_instruction)(struct _tcpu*);
+	uint32_t (*execute)(struct _tcpu*);
 } tcpu;
 
 void init_tcpu(tcpu *p_tcpu);
 
+void dump_regs(tcpu* p_tcpu);
+
+uint32_t fetch_instruction(tcpu *p_tcpu, void*);
+
 #endif		/* TCPU_H_ */
+
