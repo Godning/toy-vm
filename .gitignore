@@ -1,3 +1,6 @@
 toyvm
 toyvm.exe
 *.o
+.cproject
+.project
+.settings

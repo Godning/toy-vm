@@ -3,9 +3,10 @@ LD=gcc
 
 OBJS=toyvm.o
 
+all:toyvm
 everything:toyvm
 
-.c.o:
+%.o:	%.c
 	$(CC) -c $<
 
 toyvm:$(OBJS)
