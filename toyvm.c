@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 
-#define	NUM_REGS	3
+#define	NUM_REGS	8
 int regs[NUM_REGS];
 
 int prog[] = { 0x1064, 0x11C8, 0x2201, 0xf000 };
