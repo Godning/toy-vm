@@ -5,7 +5,6 @@
  *      Author: hackeris
  */
 
-
 #include <stdio.h>
 
 #include "tcpu.h"
@@ -40,7 +39,7 @@ void decode(int instr) {
 
 int running = 1;
 
-void execute() {
+void exec() {
 
 	switch (op_code) {
 	case OP_HALT:
@@ -77,7 +76,7 @@ void run() {
 		showRegs();
 		int instr = fetch();
 		decode(instr);
-		execute();
+		exec();
 	}
 	showRegs();
 }

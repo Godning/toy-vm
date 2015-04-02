@@ -89,7 +89,7 @@ typedef struct _tcpu {
 	tinstrution instruction;
 	void (*dump_regs)(struct _tcpu*);
 	uint32_t (*fetch_instruction)(struct _tcpu*, void*);
-	uint32_t (*decode_instruction)(struct _tcpu*);
+	uint32_t (*decode_instruction)(struct _tcpu*,uint32_t);
 	uint32_t (*execute)(struct _tcpu*);
 } tcpu;
 
@@ -98,6 +98,10 @@ void init_tcpu(tcpu *p_tcpu);
 void dump_regs(tcpu* p_tcpu);
 
 uint32_t fetch_instruction(tcpu *p_tcpu, void*);
+
+uint32_t decode_instruction(tcpu *p_tcpu,uint32_t instr);
+
+uint32_t exec(tcpu *p_tcpu);
 
 #endif		/* TCPU_H_ */
 
