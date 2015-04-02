@@ -42,13 +42,13 @@
 #include <stdio.h>
 
 enum {
-	OP_NOP = 0, OP_LOADI, OP_STRI, OP_ADD, OP_HALT = 0xf
+	OP_NOP = 0, OP_LOADI, OP_STRI, OP_ADD, OP_HALT = 0xff
 };
 
 #define	NUM_REGS	8
 int regs[NUM_REGS];
 
-int prog[] = { 0x01100064, 0x011000C8, 0x03321000, 0xff000000 };
+int prog[] = { 0x01000064, 0x011000C8, 0x03210000, 0xff000000 };
 
 int pc = 0;
 
