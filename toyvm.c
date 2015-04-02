@@ -5,45 +5,10 @@
  *      Author: hackeris
  */
 
-/**************************************
- loadi	r0,#100
- loadi	r1,#200
- add		r2,r0,r1
- halt
-
- 0	=	nop
- 1	=	loadl
- 2	=	strl
- 3	=	loadw
- 4	=	strw
- 5	=	loadb
- 6	=	strb
- 7	=	add
- 8	=	sub
- 9	=	mul
- a	=	div
- b	=	push
- c	=	pop
- ff	=	halt
-
- bits	15-12	1
- bits	11-0	register number
- bits	7-0		immediate value
-
- 1064
- 11C8
- 2201
- f000
-
- References:
- http://en.wikibooks.org/wiki/Creating_a_Virtual_Machine/Register_VM_in_C
- ***************************************/
 
 #include <stdio.h>
 
-enum {
-	OP_NOP = 0, OP_LOADI, OP_STRI, OP_ADD, OP_HALT = 0xff
-};
+#include "tcpu.h"
 
 #define	NUM_REGS	8
 int regs[NUM_REGS];
@@ -75,7 +40,7 @@ void decode(int instr) {
 
 int running = 1;
 
-void eval() {
+void execute() {
 
 	switch (op_code) {
 	case OP_HALT:
@@ -112,7 +77,7 @@ void run() {
 		showRegs();
 		int instr = fetch();
 		decode(instr);
-		eval();
+		execute();
 	}
 	showRegs();
 }

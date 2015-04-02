@@ -4,7 +4,7 @@ LD=gcc
 CCFLAGS= -g
 LDFLAGS= -g
 
-OBJS=toyvm.o
+OBJS=toyvm.o tcpu.o
 
 all:toyvm
 everything:toyvm
