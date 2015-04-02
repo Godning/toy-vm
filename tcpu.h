@@ -80,15 +80,17 @@ typedef struct _t_instrution {
 	int32_t reg_2nd;
 	int32_t reg_3rd;
 	int32_t imm;
-} t_instrution;
+} tinstrution;
 
 typedef struct _t_cpu {
 	uint32_t regs[NUM_REGISTERS];
-	t_instrution instruction;
-	void (*dump_regs)(t_cpu*);
-	int32_t (*fetch_instruction)(t_cpu*);
-	int32_t (*decode_instruction)(t_cpu*);
-	int32_t (*execute)(t_cpu*);
-} t_cpu;
+	tinstrution instruction;
+	void (*dump_regs)(tcpu*);
+	int32_t (*fetch_instruction)(tcpu*);
+	int32_t (*decode_instruction)(tcpu*);
+	int32_t (*execute)(tcpu*);
+} tcpu;
+
+void init_tcpu(tcpu *p_tcpu);
 
 #endif		/* TCPU_H_ */
